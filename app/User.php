@@ -24,6 +24,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', //'remember_token',
     ];
+
+    public function generateToken()
+    {
+        $this->remember_token = str_random(60);
+        $this->save();
+
+        return $this->remember_token;
+    }
 }

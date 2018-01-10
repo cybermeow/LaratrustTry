@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -35,5 +38,53 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function login(Request $request)
+    {
+        //OLD
+//        $this->validateLogin($request);
+//
+//        if ($this->attemptLogin($request)) {
+//            $user = $this->guard()->user();
+//            $user->generateToken();
+//
+//            return response()->json([
+//                $user->toArray(),
+//            ]);
+//        }
+//
+//        return $this->sendFailedLoginResponse($request);
+
+
+        //ldap --working !!!
+        //Auth::attempt($request->only(['username', 'password'])));
+//        var_dump(Adldap::auth()->attempt($request->get('username'), $request->get('password')),Auth::attempt($request->only(['username', 'password'])));
+
+//        if( Adldap::auth()->attempt($request->get('username'), $request->get('password')))
+//        {
+//            $user = Auth::user();
+        if ($user = User::where('email',$request->get('email'))->first()) {
+            // var_dump($user);
+
+            $user->generateToken();
+            return response()->json([
+                $user->toArray(),
+            ]);
+        }
+
+        return response()->json(['data' => 'Unauthorized'], 401);
+    }
+
+    public function logout(Request $request)
+    {
+        $user = Auth::guard('api')->user();
+
+        if ($user) {
+            $user->remember_token = null;
+            $user->save();
+        }
+
+        return response()->json(['data' => 'User logged out.'], 200);
     }
 }
