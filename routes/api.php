@@ -17,13 +17,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['middleware' => 'auth:api'], function() {
-//    Route::get('manhole/{manhole}', 'ManholeController@show');
-    Route::get('alarm-list', 'AlarmListController@index');
+//Route::middleware('role:seom|readonly|administrator')->group(function() {
+//    Route::get('alarm-list', 'AlarmListController@index');
+//    Route::get('manhole', 'ManholeController@index');
+//});
 
+
+Route::group(['middleware' => 'role:superadministrator|readonly'], function() {
+    Route::get('manhole', 'ManholeController@index');
 });
 
-Route::get('manhole', 'ManholeController@index');
+Route::get('alarm-list', 'AlarmListController@index');
+
+//Route::get('manhole', 'ManholeController@index');
 //Route::post('manhole', 'ManholeController@store');
 //Route::put('manhole/{manhole}', 'ManholeController@update');
 //Route::delete('manhole/{manhole}', 'ManholeController@delete');

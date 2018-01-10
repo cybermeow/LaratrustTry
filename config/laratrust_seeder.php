@@ -3,16 +3,23 @@
 return [
     'role_structure' => [
         'superadministrator' => [
-            'users' => 'c,r,u,d',
-            'acl' => 'c,r,u,d',
-            'profile' => 'r,u'
+            'manhole' => 'c,r,u,d',
+            'alarm-list' => 'c,r,u,d'
         ],
         'administrator' => [
-            'users' => 'c,r,u,d',
-            'profile' => 'r,u'
+            'manhole' => 'c,r,u,d',
+            'alarm-list' => 'r,u'
         ],
-        'user' => [
-            'profile' => 'r,u'
+        'noc' => [
+            'manhole' => 'c,r,u,d',
+            'alarm-list' => 'c,r,u'
+        ],
+        'seom' => [
+            'manhole' => 'r',
+            'alarm-list' => 'r',
+        ],
+        'readonly' => [
+            'manhole' => 'r'
         ],
     ],
     'permission_structure' => [
