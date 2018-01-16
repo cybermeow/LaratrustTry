@@ -15,6 +15,7 @@ class CreateAlarmListTable extends Migration
     {
         Schema::create('alarm_list', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->timestamps();
         });
     }

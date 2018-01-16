@@ -2,31 +2,32 @@
 
 return [
     'role_structure' => [
-        'superadministrator' => [
+        'superadmin' => [               // role => [module => permissions]
             'manhole' => 'c,r,u,d',
             'alarm-list' => 'c,r,u,d'
         ],
-        'administrator' => [
+        'admin' => [
             'manhole' => 'c,r,u,d',
-            'alarm-list' => 'r,u'
-        ],
-        'noc' => [
-            'manhole' => 'c,r,u,d',
-            'alarm-list' => 'c,r,u'
+            'alarm-list' => 'c,r,u,d'
         ],
         'seom' => [
             'manhole' => 'r',
-            'alarm-list' => 'r',
+            'alarm-list' => 'r'
         ],
-        'readonly' => [
-            'manhole' => 'r'
+        'noc' => [
+            'alarm-list' => 'r'
         ],
+//        'readonly' => [
+//            'manhole' => 'r',
+//            'alarm-list' => 'r'
+//        ],
     ],
-    'permission_structure' => [
-        'cru_user' => [
-            'profile' => 'c,r,u'
-        ],
-    ],
+//    'permission_structure' => [
+//        'readonly' => [                 // user => [module => permissions]
+//            'manhole' => 'r',
+//            'alarm-list' => 'r'
+//        ],
+//    ],
     'permissions_map' => [
         'c' => 'create',
         'r' => 'read',

@@ -17,17 +17,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Route::middleware('role:seom|readonly|administrator')->group(function() {
-//    Route::get('alarm-list', 'AlarmListController@index');
-//    Route::get('manhole', 'ManholeController@index');
-//});
-
-
-Route::group(['middleware' => 'role:superadministrator|readonly'], function() {
-    Route::get('manhole', 'ManholeController@index');
+Route::group(['prefix' => 'alarm-list', 'middleware' => 'role:seom|admin'], function() {
+    Route::get('/', 'AlarmListController@index');
+    Route::delete('/{id_alarm}', ['middleware' => ['permission:d'], 'uses' => 'AlarmListController@destroy']);
 });
 
-Route::get('alarm-list', 'AlarmListController@index');
+Route::get('manhole', 'ManholeController@index');
+
 
 //Route::get('manhole', 'ManholeController@index');
 //Route::post('manhole', 'ManholeController@store');

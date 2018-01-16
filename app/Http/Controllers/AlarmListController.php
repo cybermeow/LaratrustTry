@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class AlarmListController extends Controller
 {
+    public function __construct()
+    {
+//        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -82,5 +86,9 @@ class AlarmListController extends Controller
     public function destroy($id)
     {
         //
+        $alarm = AlarmList::where('id', $id);
+        $alarm->delete();
+
+        return AlarmList::all();
     }
 }
